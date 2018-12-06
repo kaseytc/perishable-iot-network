@@ -103,7 +103,6 @@ enum DistributionStatus {
   o CREATED
   o IN_TRANSIT
   o ARRIVED
-  o OUT_OF_COMPLIANCE
 }
 
 /**
