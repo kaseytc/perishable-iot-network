@@ -7,13 +7,13 @@ The business network defines a contract between growers and importers. The contr
 This business network defines:
 
 **Participants**
-`Grower` `Importer` `Shipper`
+`Grower` `Importer` `Shipper` `Regulator` `Distributor` `Retailer`
 
 **Assets**
 `Contract` `Shipment`
 
 **Transactions**
-`TemperatureReading` `ShipmentReceived` `SetupDemo`
+`TemperatureReading` `ShipmentReceived` `SetupDemo` `DistributionTemperatureReading` `DistributionReceived`
 
 To test this Business Network Definition in the **Test** tab:
 
