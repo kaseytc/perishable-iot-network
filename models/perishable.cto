@@ -30,6 +30,7 @@ enum ProductType {
   o PEARS
   o PEACHES
   o COFFEE
+  o FISH
 }
 
 /**
@@ -96,6 +97,69 @@ asset Contract identified by contractId {
 }
 
 /**
+ * The status of a distribution
+ */
+enum DistributionStatus {
+  o CREATED
+  o IN_TRANSIT
+  o ARRIVED
+}
+
+/**
+ * An abstract transaction that is related to a Distribution
+ */
+abstract transaction DistributionTransaction {
+  --> Distribution distribution
+}
+
+/**
+ * An temperature reading for a Distribution. E.g. received from a
+ * device within a temperature controlled distributing container
+ */
+transaction DistributionTemperatureReading extends DistributionTransaction {
+  o Double centigrade
+}
+
+/**
+ * A notification that a Distribution has been received by the
+ * retailer and that funds should be transferred from the retailer
+ * to the importer to pay for the Distribution.
+ */
+transaction DistributionReceived extends DistributionTransaction {
+}
+
+/**
+ * A Distribution being tracked as an asset on the ledger
+ */
+asset Distribution identified by distributionId {
+  o String distributionId 
+  o ProductType type
+  o DistributionStatus status
+  o Long unitCount
+  o DistributionTemperatureReading[] distributionTemperatureReadings optional
+  --> DistributionContract distributionContract
+}
+
+/**
+ * Defines a contract between an Importer and a Retailer to ship using
+ * a Distributor, paying a set unit price. The unit price is multiplied by
+ * a penality factor proportional to the deviation from the min and max
+ * negociated temperatures for the Distribution.
+ */
+asset DistributionContract identified by distributionContractId {
+  o String distributionContractId
+  --> Importer importer
+  --> Distributor distributor  
+  --> Retailer retailer
+  o DateTime arrivalDateTime
+  o Double unitPrice
+  o Double minTemperature
+  o Double maxTemperature
+  o Double minPenaltyFactor
+  o Double maxPenaltyFactor
+}
+
+/**
  * A concept for a simple street address
  */
 concept Address {
@@ -103,6 +167,21 @@ concept Address {
   o String country
   o String street optional
   o String zip optional
+}
+
+/**
+ * An abstract participant type in this business network
+ */
+abstract participant User identified by email {
+  o String email
+  o String firstName
+  o String lastName
+}
+
+/**
+ * A Regulator participant
+ */
+participant Regulator extends User {
 }
 
 /**
@@ -130,6 +209,18 @@ participant Shipper extends Business {
  * An Importer is a type of participant in the network
  */
 participant Importer extends Business {
+}
+
+/**
+ * An Distributor is a type of participant in the network
+ */
+participant Distributor extends Business {
+}
+
+/**
+ * An Retailer is a type of participant in the network
+ */
+participant Retailer extends Business {
 }
 
 /**
