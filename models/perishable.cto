@@ -102,6 +102,7 @@ asset Contract identified by contractId {
  */
 concept Address {
   o String city optional
+  o String state optional
   o String country
   o String street optional
   o String zip optional
@@ -127,6 +128,7 @@ participant Regulator extends User {
  */
 abstract participant Business identified by email {
   o String email
+  o String businessnName
   o Address address
   o Double accountBalance
 }
