@@ -30,7 +30,6 @@ enum ProductType {
   o PEARS
   o PEACHES
   o COFFEE
-  o FISH
 }
 
 /**
@@ -128,7 +127,7 @@ participant Regulator extends User {
  */
 abstract participant Business identified by email {
   o String email
-  o String businessnName
+  o String businessName
   o Address address
   o Double accountBalance
 }
