@@ -14,9 +14,9 @@
 
 /**
  * A business network for shipping perishable goods
- * The cargo is temperature controlled and contracts
+ * The cargo is temperature and humidity controlled and contracts
  * can be negociated based on the temperature
- * readings received for the cargo
+ * readings and humidity readings received for the cargo
  */
 
 namespace org.acme.shipping.perishable
@@ -57,12 +57,9 @@ abstract transaction ShipmentTransaction {
   --> Shipment shipment
 }
 
-/**
- * An temperature reading for a shipment. E.g. received from a
- * device within a temperature controlled shipping container
- */
-transaction TemperatureReading extends ShipmentTransaction {
-  o Double centigrade
+transaction GpsReading extends ShipmentTransaction {
+  o String latitude 
+  o String longitude 
 }
 
 /**
@@ -71,6 +68,14 @@ transaction TemperatureReading extends ShipmentTransaction {
  */
 transaction HumidityReading extends ShipmentTransaction {
   o Double percent
+}
+
+/**
+ * An temperature reading for a shipment. E.g. received from a
+ * device within a temperature controlled shipping container
+ */
+transaction TemperatureReading extends ShipmentTransaction {
+  o Double centigrade
 }
 
 /**
@@ -91,6 +96,7 @@ asset Shipment identified by shipmentId {
   o ComplianceStatus compliance
   o ShipmentStatus status
   o Long unitCount
+  o GpsReading[] gpsReadings optional
   o HumidityReading[] humidityReadings optional
   o TemperatureReading[] temperatureReadings optional
   --> Contract contract

@@ -15,7 +15,7 @@ This business network defines:
 `Contract` `Shipment`
 
 **Transactions**
-`HumidityReading` `TemperatureReading` `ShipmentReceived` `SetupDemo`
+`GpsReading` `HumidityReading` `TemperatureReading` `ShipmentReceived` `SetupDemo`
 
 To test this Business Network Definition in the **Test** tab:
 
@@ -28,6 +28,17 @@ Submit a `SetupDemo` transaction:
 ```
 
 This transaction populates the Participant Registries with a `Grower`, an `Importer` and a `Shipper`. The Asset Registries will have a `Contract` asset and a `Shipment` asset.
+
+Submit a `GpsReading` transaction:
+
+```
+{
+  "$class": "org.acme.shipping.perishable.GpsReading",
+  "latitude": "38.201464",
+  "longitude": "-57.117454",
+  "shipment": "resource:org.acme.shipping.perishable.Shipment#SHIP_001"
+}
+```
 
 Submit a `TemperatureReading` transaction:
 
