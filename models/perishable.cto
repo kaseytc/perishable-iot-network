@@ -42,6 +42,11 @@ enum ShipmentStatus {
   o OUT_OF_COMPLIANCE
 }
 
+enum ComplianceStatus {
+  o IN_COMPLIANCE
+  o OUT_OF_COMPLIANCE
+}
+
 /**
  * An abstract transaction that is related to a Shipment
  */
@@ -90,6 +95,8 @@ asset Contract identified by contractId {
   --> Importer importer
   o DateTime arrivalDateTime
   o Double unitPrice
+  o Integer minHumidity
+  o Integer maxHumidity
   o Double minTemperature
   o Double maxTemperature
   o Double minPenaltyFactor
