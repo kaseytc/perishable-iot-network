@@ -39,10 +39,13 @@ enum ShipmentStatus {
   o CREATED
   o IN_TRANSIT
   o ARRIVED
-  o OUT_OF_COMPLIANCE
 }
 
+/**
+ * The status of compliance
+ */
 enum ComplianceStatus {
+  o NOT_APPLICABLE
   o IN_COMPLIANCE
   o OUT_OF_COMPLIANCE
 }
@@ -63,6 +66,14 @@ transaction TemperatureReading extends ShipmentTransaction {
 }
 
 /**
+ * An humidity reading for a shipment. E.g. received from a
+ * device within a humidity controlled shipping container
+ */
+transaction HumidityReading extends ShipmentTransaction {
+  o Double percent
+}
+
+/**
  * A notification that a shipment has been received by the
  * importer and that funds should be transferred from the importer
  * to the grower to pay for the shipment.
@@ -75,9 +86,12 @@ transaction ShipmentReceived extends ShipmentTransaction {
  */
 asset Shipment identified by shipmentId {
   o String shipmentId
+  o String complianceDetail optional
   o ProductType type
+  o ComplianceStatus compliance
   o ShipmentStatus status
   o Long unitCount
+  o HumidityReading[] humidityReadings optional
   o TemperatureReading[] temperatureReadings optional
   --> Contract contract
 }
@@ -95,12 +109,13 @@ asset Contract identified by contractId {
   --> Importer importer
   o DateTime arrivalDateTime
   o Double unitPrice
-  o Integer minHumidity
-  o Integer maxHumidity
   o Double minTemperature
   o Double maxTemperature
   o Double minPenaltyFactor
   o Double maxPenaltyFactor
+  o Double humidityPenaltyFactor
+  o Integer minHumidity
+  o Integer maxHumidity
 }
 
 /**
@@ -124,12 +139,6 @@ abstract participant User identified by email {
 }
 
 /**
- * A Regulator participant
- */
-participant Regulator extends User {
-}
-
-/**
  * An abstract participant type in this business network
  */
 abstract participant Business identified by email {
@@ -137,6 +146,12 @@ abstract participant Business identified by email {
   o String businessName
   o Address address
   o Double accountBalance
+}
+
+/**
+ * A Regulator participant
+ */
+participant Regulator extends User {
 }
 
 /**
@@ -155,12 +170,6 @@ participant Shipper extends Business {
  * An Importer is a type of participant in the network
  */
 participant Importer extends Business {
-}
-
-/**
- * An Retailer is a type of participant in the network
- */
-participant Retailer extends Business {
 }
 
 /**
