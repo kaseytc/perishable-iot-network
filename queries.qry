@@ -1,0 +1,28 @@
+/** Sample queries for perishable IoT business network
+*/
+query selectShipment {
+  description: "Select all shipment"
+  statement:
+      SELECT org.acme.shipping.perishable.Shipment
+}
+
+query selectArrivedShipment {
+  description: "Select all arrived shipment"
+  statement:
+      SELECT org.acme.shipping.perishable.Shipment
+          WHERE (status=='ARRIVED')
+}
+
+query selectInComplianceShipment {
+  description: "Select all in compliance shipment"
+  statement:
+      SELECT org.acme.shipping.perishable.Shipment
+          WHERE (compliance=='IN_COMPLIANCE')
+}
+
+query selectOutOfComplianceShipment {
+  description: "Select all out of compliance shipment"
+  statement:
+      SELECT org.acme.shipping.perishable.Shipment
+          WHERE (compliance=='OUT_OF_COMPLIANCE')
+}
