@@ -4,7 +4,7 @@
 
 The business network defines a contract between growers and importers. 
 
-The contract stipulates that: On receipt of the shipment the importer pays the grower the unit price x the number of units in the shipment. Shipments that arrive late are free. Shipments that have breached the low temperate or humidity threshold have a penalty applied proportional to the magnitude of the breach x a penalty factor. Shipments that have breached the high temperate or humidity threshold have a penalty applied proportional to the magnitude of the breach x a penalty factor.
+The contract stipulates that: On receipt of the shipment the importer pays the grower the unit price x the number of units in the shipment. Shipments that arrive late are free. Shipments that have breached the low temperature or humidity threshold have a penalty applied proportional to the magnitude of the breach x a penalty factor. Shipments that have breached the high temperature or humidity threshold have a penalty applied proportional to the magnitude of the breach x a penalty factor.
 
 This business network defines:
 
